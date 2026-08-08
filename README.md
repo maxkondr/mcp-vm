@@ -1,71 +1,77 @@
-# MCP VictoriaMetrics Demo
+# MCP VictoriaMetrics Server
 
-This project is a small Go-based MCP setup with:
+`mcp-vm` is a Go MCP-over-HTTP server that exposes a limited set of VictoriaMetrics/Prometheus API operations as MCP tools.
 
-- an MCP **server** in `cmd/server` exposing tools backed by Prometheus/VictoriaMetrics API
-- an MCP **client** in `cmd/client` that connects to the server and calls tools
+## Deliverables checklist
 
-## Tools exposed by server
+- [x] MCP server source code in this repository
+- [x] Technical documentation for local run, data sources, and environment variables
+- [x] Architecture diagram in `docs/architecture.md`
+- [x] Prompt book (system prompts and guardrails) in `docs/prompt-book.md`
 
-- `buildInfo` - returns VictoriaMetrics build information
-- `series` - calls `vmApi.Series` to fetch matching label sets
-- `metadata` - calls `vmApi.Metadata` to fetch metric metadata
+## What is in this repository
 
-## Project layout
+- MCP server: `cmd/server/main.go`
+- Example MCP client: `cmd/client/main.go`
+- MCP tool registration and handlers: `server/mcp/`
+- HTTP auth middleware: `server/auth/auth.go`
+- Prometheus metrics middleware and collectors: `server/metrics/`
 
-- `cmd/server/main.go` - MCP server and tool/prompt registration
-- `cmd/client/main.go` - MCP client example calls
-- `Makefile` - convenience commands
+## Data sources
 
-## Commands
+The server uses VictoriaMetrics as its primary source via Prometheus-compatible API methods:
 
-Run all commands from the project root (`VM`).
+- `buildInfo` -> `Buildinfo()`
+- `series` -> `Series()`
+- `metadata` -> `Metadata()`
 
-### Build server binary
+VictoriaMetrics address is configured by `VM_ADDRESS` (default `http://localhost:8428`).
+
+## Server Environment configuration
+
+- `VM_ADDRESS`: VictoriaMetrics base URL (default `http://localhost:8428`)
+- `MCP_HTTP_ADDR`: MCP server listen address (default `:8080`)
+- `MCP_API_KEY`: API key required in `X-API-Key` header (default `local-dev-mcp-key`)
+
+## Client Environment configuration
+
+- `MCP_SERVER_URL`: client-side MCP endpoint URL (default `http://localhost:8080/mcp`)
+
+## Local run
+
+### 1) Run server locally
 
 ```bash
 make build-server
+./bin/server
 ```
 
-This builds `cmd/server/server`.
-
-### Run client
+### 2) Run client locally
 
 ```bash
-make run-client
+make build-client
+./bin/client
 ```
 
-Client authenticates using `MCP_API_KEY` (default: `local-dev-mcp-key`).
-
-### Build and run server in Docker
-
-Build image locally:
-
-```bash
-docker compose build mcp-server
-```
-
-Run the MCP server container:
+### 3) Run server with Docker Compose
 
 ```bash
 docker compose up --build mcp-server
 ```
-
-By default, containerized server connects to VictoriaMetrics at `http://host.docker.internal:8428`.
-Override it with:
+It runs MCP server in a container and connects to VictoriaMetrics at `http://host.docker.internal:8428` by default. Override it with:
 
 ```bash
 VM_ADDRESS=http://localhost:8428 docker compose up --build mcp-server
 ```
 
-The MCP Streamable HTTP endpoint is exposed at `http://localhost:8080/mcp`.
-Calls to this endpoint require the `X-API-Key` header.
-Prometheus metrics are exposed at `http://localhost:8080/metrics`.
+## HTTP endpoints
 
-## Notes
-- Server uses `VM_ADDRESS` when set; otherwise defaults to `http://localhost:8428`.
-- Server uses `MCP_HTTP_ADDR` when set; otherwise defaults to `:8080`.
-- Server and client use `MCP_API_KEY` for API key authentication (default: `local-dev-mcp-key`).
-- TLS verification is currently disabled in `cmd/server/main.go` for local/dev usage.
-- Server exports MCP metrics for tool calls, tool errors, tool latency, HTTP requests, HTTP errors, and HTTP latency.
+- MCP endpoint: `http://localhost:8080/mcp`
+- Metrics endpoint: `http://localhost:8080/metrics`
 
+All MCP calls must include `X-API-Key` with a value matching `MCP_API_KEY`.
+
+## Additional project docs
+
+- Architecture schema: `docs/architecture.md`
+- Prompt book: `docs/prompt-book.md`

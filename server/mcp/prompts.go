@@ -7,8 +7,8 @@ import (
     "github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-// BuildInfoPrompt returns a prompt template that instructs clients to call the buildInfo tool.
-func BuildInfoPrompt(_ context.Context, _ *mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
+// buildInfoPrompt returns a prompt template that instructs clients to call the buildInfo tool.
+func buildInfoPrompt(_ context.Context, _ *mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
     return &mcp.GetPromptResult{
         Description: "Prompt for VictoriaMetrics build information",
         Messages: []*mcp.PromptMessage{
@@ -20,8 +20,8 @@ func BuildInfoPrompt(_ context.Context, _ *mcp.GetPromptRequest) (*mcp.GetPrompt
     }, nil
 }
 
-// SeriesPrompt returns a prompt template that instructs clients to call the series tool.
-func SeriesPrompt(_ context.Context, req *mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
+// seriesPrompt returns a prompt template that instructs clients to call the series tool.
+func seriesPrompt(_ context.Context, req *mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
     match := "up"
     start := ""
     end := ""
@@ -58,8 +58,8 @@ func SeriesPrompt(_ context.Context, req *mcp.GetPromptRequest) (*mcp.GetPromptR
     }, nil
 }
 
-// MetadataPrompt returns a prompt template that instructs clients to call the metadata tool.
-func MetadataPrompt(_ context.Context, req *mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
+// metadataPrompt returns a prompt template that instructs clients to call the metadata tool.
+func metadataPrompt(_ context.Context, req *mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
     metric := ""
     limit := ""
 

@@ -14,7 +14,7 @@ func RegisterPrompts(server *mcp.Server) {
     server.AddPrompt(&mcp.Prompt{
         Name:        "vm_buildinfo",
         Description: "Prompt template for buildInfo tool",
-    }, BuildInfoPrompt)
+    }, buildInfoPrompt)
 
     server.AddPrompt(&mcp.Prompt{
         Name:        "vm_series",
@@ -34,7 +34,7 @@ func RegisterPrompts(server *mcp.Server) {
                 Description: "RFC3339 end timestamp",
             },
         },
-    }, SeriesPrompt)
+    }, seriesPrompt)
 
     server.AddPrompt(&mcp.Prompt{
         Name:        "vm_metadata",
@@ -49,5 +49,5 @@ func RegisterPrompts(server *mcp.Server) {
                 Description: "Optional max metadata entries per metric",
             },
         },
-    }, MetadataPrompt)
+    }, metadataPrompt)
 }

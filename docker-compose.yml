@@ -1,13 +1,34 @@
 services:
+  victoria-metrics:
+    image: victoriametrics/victoria-metrics:v1.125.0
+    command:
+      - "-storageDataPath=/victoria-metrics-data"
+      - "-httpListenAddr=:8428"
+      - "-promscrape.config=/etc/victoria-metrics/promscrape.yml"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8428:8428"
+    volumes:
+      - vm-data:/victoria-metrics-data
+      - ./deploy/promscrape.yml:/etc/victoria-metrics/promscrape.yml:ro
+    restart: unless-stopped
+
   mcp-server:
     build:
       context: .
       dockerfile: Dockerfile
     image: mcp-vm-server:local
     environment:
-      VM_ADDRESS: ${VM_ADDRESS:-http://host.docker.internal:8428}
+      VM_ADDRESS: ${VM_ADDRESS:-http://victoria-metrics:8428}
       MCP_HTTP_ADDR: ${MCP_HTTP_ADDR:-:8080}
       MCP_API_KEY: ${MCP_API_KEY:-local-dev-mcp-key}
+    depends_on:
+      - victoria-metrics
     ports:
       - "8080:8080"
     restart: "no"
+
+volumes:
+  vm-data:
+
