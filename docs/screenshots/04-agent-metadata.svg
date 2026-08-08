@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#0f172a"/>
+  <rect x="24" y="24" width="1232" height="672" rx="12" fill="#111827" stroke="#334155"/>
+  <text x="48" y="68" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="28">Screenshot 4 - Agent explains metric meaning for action</text>
+  <rect x="48" y="98" width="1184" height="260" rx="10" fill="#020617" stroke="#1e293b"/>
+  <text x="72" y="138" fill="#f8fafc" font-family="Menlo, Monaco, monospace" font-size="21">Agent -&gt; tool.metadata {metric="http_requests_total", limit="5"}</text>
+  <text x="72" y="176" fill="#22c55e" font-family="Menlo, Monaco, monospace" font-size="21">HELP: Total HTTP requests partitioned by status code.</text>
+  <text x="72" y="214" fill="#22c55e" font-family="Menlo, Monaco, monospace" font-size="21">TYPE: counter</text>
+  <text x="72" y="252" fill="#e2e8f0" font-family="Menlo, Monaco, monospace" font-size="20">Labels: job, instance, status, region</text>
+  <text x="48" y="410" fill="#f1f5f9" font-family="Arial, sans-serif" font-size="30">Business step: handoff with exact metric semantics and labels.</text>
+  <text x="48" y="460" fill="#f1f5f9" font-family="Arial, sans-serif" font-size="30">Outcome: on-call can deploy rollback and monitor recovery.</text>
+</svg>
+

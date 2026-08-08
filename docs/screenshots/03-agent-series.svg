@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#111827"/>
+  <rect x="24" y="24" width="1232" height="672" rx="12" fill="#0f172a" stroke="#334155"/>
+  <text x="48" y="68" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="28">Screenshot 3 - Agent isolates impacted workloads</text>
+  <rect x="48" y="98" width="1184" height="300" rx="10" fill="#020617" stroke="#1e293b"/>
+  <text x="72" y="138" fill="#f8fafc" font-family="Menlo, Monaco, monospace" font-size="21">Agent -&gt; tool.series {match[]=http_requests_total{job="checkout"}, lookback="30m"}</text>
+  <text x="72" y="176" fill="#22c55e" font-family="Menlo, Monaco, monospace" font-size="21">Result count: 4 series</text>
+  <text x="72" y="214" fill="#e2e8f0" font-family="Menlo, Monaco, monospace" font-size="20">1) instance="checkout-1" status="500" region="eu-1"</text>
+  <text x="72" y="248" fill="#e2e8f0" font-family="Menlo, Monaco, monospace" font-size="20">2) instance="checkout-2" status="500" region="eu-1"</text>
+  <text x="72" y="282" fill="#e2e8f0" font-family="Menlo, Monaco, monospace" font-size="20">3) instance="checkout-3" status="200" region="eu-1"</text>
+  <text x="72" y="316" fill="#e2e8f0" font-family="Menlo, Monaco, monospace" font-size="20">4) instance="checkout-4" status="200" region="eu-1"</text>
+  <text x="48" y="460" fill="#f1f5f9" font-family="Arial, sans-serif" font-size="30">Business step: narrow issue to two failing pods.</text>
+</svg>
+

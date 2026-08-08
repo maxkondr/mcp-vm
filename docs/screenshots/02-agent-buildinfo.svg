@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#0b1020"/>
+  <rect x="24" y="24" width="1232" height="672" rx="12" fill="#111827" stroke="#334155"/>
+  <text x="48" y="68" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="28">Screenshot 2 - Agent runs buildInfo tool</text>
+  <rect x="48" y="98" width="1184" height="250" rx="10" fill="#020617" stroke="#1e293b"/>
+  <text x="72" y="138" fill="#e2e8f0" font-family="Menlo, Monaco, monospace" font-size="21">User: Check production telemetry backend version.</text>
+  <text x="72" y="176" fill="#f8fafc" font-family="Menlo, Monaco, monospace" font-size="21">Agent -&gt; tool.buildInfo {}</text>
+  <text x="72" y="214" fill="#22c55e" font-family="Menlo, Monaco, monospace" font-size="21">Result: version=v1.103.0, branch=master, buildDate=2026-08-08</text>
+  <text x="72" y="252" fill="#22c55e" font-family="Menlo, Monaco, monospace" font-size="21">Decision: platform is healthy, continue incident drilldown.</text>
+  <text x="48" y="410" fill="#f1f5f9" font-family="Arial, sans-serif" font-size="30">Business step: verify platform state before analysis.</text>
+</svg>
+

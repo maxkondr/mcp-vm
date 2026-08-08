@@ -71,6 +71,34 @@ VM_ADDRESS=http://localhost:8428 docker compose up --build mcp-server
 
 All MCP calls must include `X-API-Key` with a value matching `MCP_API_KEY`.
 
+## Practical business scenario (screenshots)
+
+This flow shows how an on-call engineer uses the agent to investigate checkout errors with VictoriaMetrics data behind MCP tools.
+
+### 1) Start MCP gateway
+
+The service starts with API key protection and exposes `/mcp` for agent calls.
+
+![Start MCP server](docs/screenshots/01-start-server.svg)
+
+### 2) Verify telemetry backend state
+
+The agent calls `buildInfo` first to validate that the metrics backend is reachable and healthy.
+
+![Agent buildInfo](docs/screenshots/02-agent-buildinfo.svg)
+
+### 3) Isolate impacted workloads
+
+The agent calls `series` for checkout request metrics and identifies only failing instances.
+
+![Agent series](docs/screenshots/03-agent-series.svg)
+
+### 4) Explain metrics for remediation handoff
+
+The agent calls `metadata` to confirm metric type and labels, then provides actionable context for rollback and monitoring.
+
+![Agent metadata](docs/screenshots/04-agent-metadata.svg)
+
 ## Additional project docs
 
 - Architecture schema: `docs/architecture.md`

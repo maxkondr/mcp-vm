@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#0d1117"/>
+  <rect x="24" y="24" width="1232" height="672" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="48" y="68" fill="#58a6ff" font-family="Menlo, Monaco, monospace" font-size="28">Screenshot 1 - Start MCP VM server</text>
+  <text x="48" y="120" fill="#c9d1d9" font-family="Menlo, Monaco, monospace" font-size="24">$ make run-server</text>
+  <text x="48" y="160" fill="#8b949e" font-family="Menlo, Monaco, monospace" font-size="14">
+    <tspan x="48" dy="0">docker compose -f ./docker-compose.yml up --build --detach --renew-anon-volumes --remove-orphans --wait --wait-timeout 100</tspan>
+    <tspan x="48" dy="20">[+] Building 4.0s (24/24) FINISHED</tspan>
+    <tspan x="48" dy="20">=&gt; [internal] load local bake definitions                                                 0.0s</tspan>
+    <tspan x="48" dy="20">=&gt; [internal] load build definition from Dockerfile                                       0.0s</tspan>
+    <tspan x="48" dy="20">=&gt; resolve image config for docker/dockerfile:1.7                                          1.3s</tspan>
+    <tspan x="48" dy="20">=&gt; [internal] load metadata for golang:1.26-alpine                                         1.2s</tspan>
+    <tspan x="48" dy="20">=&gt; [internal] load metadata for alpine:3.22                                                1.0s</tspan>
+    <tspan x="48" dy="20">=&gt; [build 6/7] COPY . .                                                                    0.0s</tspan>
+    <tspan x="48" dy="20">=&gt; [build 7/7] RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ...                     0.7s</tspan>
+    <tspan x="48" dy="20">=&gt; [stage-1 4/4] COPY --from=build /out/mcp-vm-server /app/mcp-vm-server                 0.0s</tspan>
+    <tspan x="48" dy="20">=&gt; exporting to image                                                                       0.1s</tspan>
+    <tspan x="48" dy="20">[+] up 3/3</tspan>
+    <tspan x="48" dy="20">✔ Image mcp-vm-server:local Built                                                           4.0s</tspan>
+    <tspan x="48" dy="20">✔ Container mcp-vm-victoria-metrics-1 Healthy                                               0.7s</tspan>
+    <tspan x="48" dy="20">✔ Container mcp-vm-mcp-server-1 Healthy</tspan>
+  </text>
+  <text x="48" y="535" fill="#3fb950" font-family="Menlo, Monaco, monospace" font-size="18">INFO mcp-vm server listening addr=:8080 vm=http://localhost:8428</text>
+  <text x="48" y="565" fill="#3fb950" font-family="Menlo, Monaco, monospace" font-size="18">INFO endpoint /mcp ready, /metrics ready</text>
+  <text x="48" y="640" fill="#f0f6fc" font-family="Arial, sans-serif" font-size="30">Business step: launch the secure MCP gateway.</text>
+</svg>
+
