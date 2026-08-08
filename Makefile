@@ -1,7 +1,8 @@
 .PHONY: build-server build-client
 .DEFAULT_GOAL := help
 
-BIN_PATH ?= $(CURDIR)/../bin
+BIN_PATH ?= $(CURDIR)/bin
+BUILD_FLAGS = -v -trimpath -ldflags="-s -w" -gcflags="all=-N -l"
 
 help:	## Display this help message
 	@echo "Please use \`make <target>\`, where <target> is one of the following:"
@@ -11,8 +12,8 @@ $(BIN_PATH):
 	mkdir -p $(BIN_PATH)
 
 build-server: $(BIN_PATH)	## Build MCP server release binary
-	env CGO_ENABLED=0 go build -v -gcflags="all=-N -l" -o $(BIN_PATH)/ ./cmd/server
+	env CGO_ENABLED=0 go build $(BUILD_FLAGS) -o $(BIN_PATH)/ ./cmd/server
 
 build-client: $(BIN_PATH)	## Build MCP client release binary
-	env CGO_ENABLED=0 go build -v -gcflags="all=-N -l" -o $(BIN_PATH)/ ./cmd/client
+	env CGO_ENABLED=0 go build $(BUILD_FLAGS) -o $(BIN_PATH)/ ./cmd/client
 

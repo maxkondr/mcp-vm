@@ -1,7 +1,6 @@
 .git
 .gitignore
 bin/
-cmd/server/server
+.idea/
 *.out
 *.log
-
