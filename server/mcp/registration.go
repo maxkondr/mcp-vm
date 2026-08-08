@@ -2,12 +2,14 @@ package mcp
 
 import "github.com/modelcontextprotocol/go-sdk/mcp"
 
+// RegisterTools registers all VictoriaMetrics-backed MCP tools on the server.
 func RegisterTools(server *mcp.Server) {
     mcp.AddTool(server, &mcp.Tool{Name: "buildInfo", Description: "Get VictoriaMetrics build info"}, BuildInfo)
     mcp.AddTool(server, &mcp.Tool{Name: "series", Description: "Find series by label matchers"}, Series)
     mcp.AddTool(server, &mcp.Tool{Name: "metadata", Description: "Get metric metadata"}, Metadata)
 }
 
+// RegisterPrompts registers all prompt templates exposed by this MCP server.
 func RegisterPrompts(server *mcp.Server) {
     server.AddPrompt(&mcp.Prompt{
         Name:        "vm_buildinfo",

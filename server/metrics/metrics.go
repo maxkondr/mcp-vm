@@ -66,11 +66,13 @@ func (r *statusRecorder) Unwrap() http.ResponseWriter {
     return r.ResponseWriter
 }
 
+// ObserveToolStart increments per-tool call count and returns start time for latency tracking.
 func ObserveToolStart(tool string) time.Time {
     mcpToolCallsTotal.WithLabelValues(tool).Inc()
     return time.Now()
 }
 
+// ObserveToolEnd records per-tool latency and increments error count when err is non-nil.
 func ObserveToolEnd(tool string, start time.Time, err error) {
     if err != nil {
         mcpToolErrorsTotal.WithLabelValues(tool).Inc()

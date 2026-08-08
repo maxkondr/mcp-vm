@@ -12,6 +12,7 @@ var (
     vmApi v1.API
 )
 
+// InitVictoriaMetricsApi initializes the shared VictoriaMetrics/Prometheus API client.
 func InitVictoriaMetricsApi(vmAddress string) {
     client, err := api.NewClient(api.Config{
         Client:  http.DefaultClient,

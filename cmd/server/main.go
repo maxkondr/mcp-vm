@@ -9,6 +9,7 @@ import (
     "github.com/maxkondr/mcp-vm/server"
     "github.com/maxkondr/mcp-vm/server/auth"
     "github.com/maxkondr/mcp-vm/server/config"
+    mcpVm "github.com/maxkondr/mcp-vm/server/mcp"
     "github.com/maxkondr/mcp-vm/server/metrics"
     "github.com/modelcontextprotocol/go-sdk/mcp"
     "github.com/prometheus/client_golang/prometheus/promhttp"
@@ -28,17 +29,18 @@ func main() {
     http.DefaultClient.Transport = tr
     http.DefaultClient.Timeout = 10 * time.Second
 
-    vmAddress := config.VmAddressFromEnv()
+    vmAddress := config.VMAddressFromEnv()
     logrus.WithField("vm_address", vmAddress).Info("initializing VictoriaMetrics client")
+    mcpVm.InitVictoriaMetricsApi(vmAddress)
 
     // MCP
-    server := server.NewMCPServer()
+    mcpServer := server.NewMCPServer()
     handler := mcp.NewStreamableHTTPHandler(func(_ *http.Request) *mcp.Server {
-        return server
+        return mcpServer
     }, &mcp.StreamableHTTPOptions{
         SessionTimeout: 5 * time.Minute,
     })
-    authenticatedHandler := auth.WithAPIKeyAuth(handler, config.McpAPIKeyFromEnv())
+    authenticatedHandler := auth.WithAPIKeyAuth(handler, config.MCPAPIKeyFromEnv())
 
     mux := http.NewServeMux()
     mux.Handle("/mcp", authenticatedHandler)
@@ -46,7 +48,7 @@ func main() {
     instrumentedMux := metrics.WithHTTPMetrics(mux)
 
     httpServer := &http.Server{
-        Addr:              config.HttpAddressFromEnv(),
+        Addr:              config.HTTPAddressFromEnv(),
         Handler:           instrumentedMux,
         ReadHeaderTimeout: 5 * time.Second,
     }
@@ -55,7 +57,7 @@ func main() {
         "addr":             httpServer.Addr,
         "path":             "/mcp",
         "metrics_endpoint": "/metrics",
-        "auth_header":      config.ApiKeyHeader,
+        "auth_header":      config.APIKeyHeader,
         "api_key_enabled":  true,
     }).Info("starting MCP streamable HTTP server")
 
